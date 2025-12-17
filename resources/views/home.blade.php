@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>
-        @if($name === "Arnold")
-            Hello Admin
-        @else
-            Hello {{ $name }}
-        @endif
-    </h1>
-</body>
-</html>
+<x-base>
+
+<x-slot:name>Arnold</x-slot:name>
+
+<x-slot:content>
+    <h1 class="text-4xl font-bold">Home</h1>
+    <p class="mt-4 text-lg">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque in saepe ea eius ex recusandae impedit earum! Aperiam quibusdam quos voluptate quisquam cum saepe incidunt odio delectus! Eius, obcaecati asperiores.</p>
+</x-slot:content>
+
+</x-base>
