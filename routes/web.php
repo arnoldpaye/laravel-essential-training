@@ -7,26 +7,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function() {
-    // 1. Using raw SQL queries
-    // $users = DB::select('SELECT * FROM users');
-    // dd($users);
+    // Get the student model where email is john@example.com
+    $student = Student::where('email', 'john@example.com')->first();
+    dd($student);
 
-    // 2. Query builder
-    // $users = DB::table('users')->select(['name', 'email'])->whereNotNull('email')->orderBy('name')->get();
-    // dd($users);
+    // Update the 'status' column with the value 'active'
+    $student->status = 'active';
 
-    // 3. Eloquent ORM
-    $students = Student::select(['name', 'email'])->whereNotNull('email')->orderBy('name')->get();
-    // dd($students);
-    /* foreach($students as $student) {
-        echo $student->name."<br>";
-    } */
-
-    $student = new Student();
-    $student->id = 3;
-    $student->name = "Jane";
-    $student->email = "jane@example.com";
+    // Save the model
     $student->save();
+
+    // Dump the result
+    dd($student);
 });
 
 Route::get('/home', function () {
