@@ -19,9 +19,9 @@
         @if (Route::has('login'))
         @auth
         <a
-            href="{{ url('/dashboard') }}"
+            href="{{ route('notes.index') }}"
             class="text-indigo-600 hover:text-indigo-800">
-            Dashboard
+            Notes
         </a>
         @else
         <a
