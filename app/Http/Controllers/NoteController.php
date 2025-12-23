@@ -17,4 +17,12 @@ class NoteController extends Controller
         $notes = Note::where('user_id', $user_id)->latest('updated_at')->paginate(5);
         return view('notes.index')->with('notes', $notes);
     }
+
+    /*
+    * Show the form for creating a new resource.
+    */
+    public function create()
+    {
+        return view('notes.create');
+    }
 }
