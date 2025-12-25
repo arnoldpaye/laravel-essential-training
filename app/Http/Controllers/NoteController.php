@@ -43,4 +43,17 @@ class NoteController extends Controller
         ]);
         $note->save();
     }
+
+    /**
+     * Display the specific resource.
+     */
+    public function show(Note $note)
+    {
+        if ($note->user_id !== Auth::id())
+        {
+            abort('403');
+        }
+        
+        return view('notes.show', ['note' => $note]);
+    }
 }
