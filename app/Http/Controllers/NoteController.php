@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class NoteController extends Controller
 {
@@ -38,6 +39,7 @@ class NoteController extends Controller
         
         $note = new Note([
             'user_id' => Auth::id(),
+            'uuid' => Str::uuid(),
             'title' => $request->title,
             'text' => $request->text,
         ]);
@@ -53,7 +55,7 @@ class NoteController extends Controller
         {
             abort('403');
         }
-        
+
         return view('notes.show', ['note' => $note]);
     }
 }
