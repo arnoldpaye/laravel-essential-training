@@ -15,9 +15,9 @@
                 <form action="{{ route('notes.destroy', $note) }}" method="post">
                     @method('delete')
                     @csrf
-                    <x-primary-button class="bg-red-500 hover:bg-red-600 focus:bg-red-600" onclick="return confirm('Are you sure you want to delete this note?')">
+                    <x-danger-button onclick="return confirm('Are you sure you want to delete this note?')">
                         Delete Button
-                    </x-primary-button>
+                    </x-danger-button>
                 </form>
             </div>
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
