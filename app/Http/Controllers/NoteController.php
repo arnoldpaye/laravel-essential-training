@@ -101,6 +101,12 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
+        if ($note->user_id !== Auth::id()) {
+            abort(403);
+        }
 
+        $note->delete();
+
+        return to_route('notes.index');
     }
 }
