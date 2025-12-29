@@ -44,6 +44,8 @@ class NoteController extends Controller
             'text' => $request->text,
         ]);
         $note->save();
+
+        return to_route('notes.show', $note);
     }
 
     /**
@@ -57,5 +59,48 @@ class NoteController extends Controller
         }
 
         return view('notes.show', ['note' => $note]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Note $note)
+    {
+        if ($note->user_id !== Auth::id())
+        {
+            abort('403');
+        }
+
+        return view('notes.edit', ['note' => $note]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Note $note)
+    {
+        if ($note->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|max:120',
+            'text' => 'required'
+        ]);
+        
+        $note->update([
+            'title' => $request->title,
+            'text' => $request->text,
+        ]);
+
+        return to_route('notes.show', $note);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Note $note)
+    {
+
     }
 }
