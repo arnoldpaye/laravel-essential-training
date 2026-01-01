@@ -21,8 +21,8 @@
                 <form action="{{ route('notes.destroy', $note) }}" method="post">
                     @method('delete')
                     @csrf
-                    <x-danger-button onclick="return confirm('Are you sure you want to delete this note?')">
-                        Delete Button
+                    <x-danger-button onclick="return confirm('Move to trash?')">
+                        Move To Trash
                     </x-danger-button>
                 </form>
             </div>
