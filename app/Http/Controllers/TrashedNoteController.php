@@ -21,7 +21,19 @@ class TrashedNoteController extends Controller
         {
             abort('403');
         }
-        
+
         return view('notes.show')->with('note', $note);
+    }
+
+    public function update(Note $note)
+    {
+        if (!$note->user->is(Auth::user()))
+        {
+            abort('403');
+        }
+
+        $note->restore();
+
+        return to_route('notes.show', $note)->with('success', 'Note restored!');
     }
 }
