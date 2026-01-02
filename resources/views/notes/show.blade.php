@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Notes
+             {{ !$note->trashed() ? 'Notes' : 'Trash' }}
         </h2>
     </x-slot>
 
@@ -13,19 +13,35 @@
                 {{ optional($note->notebook)->name }}
             </span>
             
-            <div class="flex gap-6">
-                <p class="opacity-70"><strong>Created:</strong> {{ $note->created_at->diffForHumans() }}</p>
-                <p class="opacity-70"><strong>Last changed:</strong> {{ $note->updated_at->diffForHumans() }}</p>
+            @if(!$note->trashed())
+                <div class="flex gap-6">
+                    <p class="opacity-70"><strong>Created:</strong> {{ $note->created_at->diffForHumans() }}</p>
+                    <p class="opacity-70"><strong>Last changed:</strong> {{ $note->updated_at->diffForHumans() }}</p>
 
-                <x-link-button href="{{ route('notes.edit', $note) }}" class="ml-auto">Edit Note</x-link-button>
-                <form action="{{ route('notes.destroy', $note) }}" method="post">
-                    @method('delete')
-                    @csrf
-                    <x-danger-button onclick="return confirm('Move to trash?')">
-                        Move To Trash
-                    </x-danger-button>
-                </form>
-            </div>
+                    <x-link-button href="{{ route('notes.edit', $note) }}" class="ml-auto">Edit Note</x-link-button>
+                    <form action="{{ route('notes.destroy', $note) }}" method="post">
+                        @method('delete')
+                        @csrf
+                        <x-danger-button onclick="return confirm('Move to trash?')">
+                            Move To Trash
+                        </x-danger-button>
+                    </form>
+                </div>
+            @else
+                <div class="flex gap-6">
+                    <p class="opacity-70"><strong>Deleted:</strong> {{ $note->deleted_at->diffForHumans() }}</p>
+
+                    <!-- <x-link-button href="{{ route('notes.edit', $note) }}" class="ml-auto">Edit Note</x-link-button>
+                    <form action="{{ route('notes.destroy', $note) }}" method="post">
+                        @method('delete')
+                        @csrf
+                        <x-danger-button onclick="return confirm('Move to trash?')">
+                            Move To Trash
+                        </x-danger-button>
+                    </form> -->
+                </div>
+            @endif
+            
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="font-bold text-4xl text-indigo-600">
                     {{ $note->title }}
