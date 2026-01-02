@@ -38,13 +38,13 @@
                             Restore Note
                         </x-danger-button>
                     </form>
-                    <!-- <form action="{{ route('notes.destroy', $note) }}" method="post">
+                    <form action="{{ route('trashed.destroy', $note) }}" method="post">
                         @method('delete')
                         @csrf
-                        <x-danger-button onclick="return confirm('Move to trash?')">
-                            Move To Trash
+                        <x-danger-button onclick="return confirm('Are you sure you wish to delete this note forever? This action cannot be undone.')">
+                            Delete Forever
                         </x-danger-button>
-                    </form> -->
+                    </form>
                 </div>
             @endif
             
